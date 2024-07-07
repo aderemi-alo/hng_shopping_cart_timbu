@@ -23,38 +23,28 @@ class Shop {
 class Item {
   final String name;
   final String? description;
-  final bool isAvailable;
-  final String organizationId;
   final List<Photo> photos;
-  final dynamic availableQuantity; // Can be null
-  final dynamic sellingPrice; // Can be null
-  final dynamic discountedPrice; // Can be null
-  final dynamic featuredReviews; // Can be null
+  final double? availableQuantity;
+  List<CurrentPrice> currentPrice;
 
   Item({
     required this.name,
     required this.description,
-    required this.isAvailable,
-    required this.organizationId,
     required this.photos,
-    this.availableQuantity,
-    this.sellingPrice,
-    this.discountedPrice,
-    this.featuredReviews,
+    required this.availableQuantity,
+    required this.currentPrice,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         name: json['name'] as String,
         description: json['description'],
-        isAvailable: json['is_available'] as bool,
-        organizationId: json['organization_id'] as String,
         photos: (json['photos'] as List)
             .map((image) => Photo.fromJson(image))
             .toList(),
         availableQuantity: json['available_quantity'],
-        sellingPrice: json['selling_price'],
-        discountedPrice: json['discounted_price'],
-        featuredReviews: json['featured_reviews'],
+        currentPrice: (json['current_price'] as List)
+            .map((price) => CurrentPrice.fromJson(price))
+            .toList(),
       );
 }
 
@@ -68,4 +58,20 @@ class Photo {
   factory Photo.fromJson(Map<String, dynamic> json) => Photo(
         url: json['url'] as String,
       );
+}
+
+class CurrentPrice {
+  List<dynamic> ngn;
+
+  CurrentPrice({
+    required this.ngn,
+  });
+
+  factory CurrentPrice.fromJson(Map<String, dynamic> json) => CurrentPrice(
+        ngn: List<dynamic>.from(json["NGN"].map((prices) => prices)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "NGN": List<dynamic>.from(ngn.map((x) => x)),
+      };
 }

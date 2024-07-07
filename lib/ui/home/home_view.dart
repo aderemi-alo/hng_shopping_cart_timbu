@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shop'),
+        title: const Text('Items'),
       ),
       body: viewModel.isLoaded
           ? viewModel.items != null && viewModel.items!.isNotEmpty
@@ -38,30 +38,32 @@ class _HomePageState extends State<HomePage> {
                   itemCount: viewModel.items!.length,
                   itemBuilder: (context, index) {
                     final item = viewModel.items![index];
-                    if (item.photos.isNotEmpty) {
-                      print(item.photos[0].url);
-                    }
-                    return Container(
-                      child: Row(
+                    return Center(
+                      child: Column(
                         children: [
+                          item.photos.isNotEmpty
+                              ? Image.network(
+                                  height: 200,
+                                  width: 250,
+                                  "https://api.timbu.cloud/images/${item.photos[0].url}?auto=compress&cs=tinysrgb&dpr=1&w=200")
+                              : Container(),
                           Column(
-                            children: [Text(item.name)],
+                            children: [
+                              Text(
+                                item.name,
+                                style: TextStyle(fontSize: 18),
+                              ),
+                              Text(
+                                  "Price: ₦${item.currentPrice[0].ngn[0].toInt()}"),
+                              Text("${item.availableQuantity}"),
+                            ],
                           ),
-                          Image.network(
-                              "https://api.timbu.cloud/images/${item.photos}?auto=compress&cs=tinysrgb&dpr=1&w=200")
+                          SizedBox(
+                            height: 30,
+                          )
                         ],
                       ),
                     );
-                    // ListTile(
-                    //   title: Text(item.name),
-                    //   subtitle: item.description != null
-                    //       ? Text(item.description as String)
-                    //       : null,
-                    //   trailing: item.photos.isNotEmpty
-                    //       ? Image.network(
-                    //           "https://api.timbu.cloud/images/${item.photos}?auto=compress&cs=tinysrgb&dpr=1&w=200")
-                    //       : null,
-                    // );
                   },
                 )
               : const Center(child: Text('No items available'))
