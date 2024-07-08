@@ -38,31 +38,30 @@ class _HomePageState extends State<HomePage> {
                   itemCount: viewModel.items!.length,
                   itemBuilder: (context, index) {
                     final item = viewModel.items![index];
-                    return Center(
-                      child: Column(
-                        children: [
-                          item.photos.isNotEmpty
-                              ? Image.network(
-                                  height: 200,
-                                  width: 250,
-                                  "https://api.timbu.cloud/images/${item.photos[0].url}?auto=compress&cs=tinysrgb&dpr=1&w=200")
-                              : Container(),
-                          Column(
-                            children: [
-                              Text(
-                                item.name,
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              Text(
-                                  "Price: ₦${item.currentPrice[0].ngn[0].toInt()}"),
-                              Text("${item.availableQuantity}"),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          )
-                        ],
-                      ),
+                    return Column(
+                      children: [
+                        item.photos.isNotEmpty
+                            ? Image.network(
+                                height: 200,
+                                width: 250,
+                                "https://api.timbu.cloud/images/${item.photos[0].url}?auto=compress&cs=tinysrgb&dpr=1&w=200")
+                            : Container(),
+                        Column(
+                          children: [
+                            Text(
+                              item.name,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                                "Price: ₦${item.currentPrice[0].ngn[0].toInt()}"),
+                            Text(
+                                "In stock: ${item.availableQuantity!.toInt()}"),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
                     );
                   },
                 )
