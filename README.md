@@ -5,5 +5,6 @@ list of products and their relevant information from the Timbu platform.
 MVVM architecture was used for this application.
 
 Appetize link: https://appetize.io/app/b_qnbyeqetowt4kftm46jb6ygvjm
+
 APK Link: https://drive.google.com/file/d/1Ff4Knas1rCtPP6tF8oSmaf9yyxwTxdaQ/view?usp=share_link
-[Screenshot of Application](screen.png)
+![Screenshot of Application](screen.png)
